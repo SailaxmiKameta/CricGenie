@@ -1,36 +1,116 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 
-<div class="'col-md-6 offset-md-3">
+<div>
+  <div>
+    {% if user.is_authenticated %}
+    <h3 class="text-center mb-3" style="color: #000;"> Hello, {{ user.username }}!</h3>
+    <div class="container-fluid d-flex flex-column min-vh-100 bg-secondary">
+      <header class="py-3 d-flex flex-column align-items-center justify-content-center">
+        <h1 class="display-1 text-center text-light">Cricket Mania</h1>
+        <p class="lead text-center text-light">Welcome to the world of cricket!</p>
+      </header>
+      <main class="container flex-grow-1">
+        <section class="row justify-content-center">
+          <div class="col-md-8">
+            <h2 class="mb-4">What is Cricket?</h2>
+            <p class="lead">Cricket is a bat-and-ball game played between two teams of eleven players each on a
+              field at the
+              center of which a rectangular 22-yard pitch with a wicket at each end, each comprising two bails
+              balanced on
+              three stumps.</p>
+            <div><img
+                src="https://assets-global.website-files.com/5ca5fe687e34be0992df1fbe/632423fec18a84019f9f5520_Cricket%20Pitch.jpg"
+                alt="wicket" class="img-fluid"></div>
+            <p>The game proceeds when a player on the fielding team known as the "bowler" throws the ball at the
+              wicket
+              guarded by two players on the batting side known as "batsmen".</p>
+          </div>
+        </section>
 
-{% if user.is_authenticated %}
+        <hr class="my-5">
 
-<h1> Welcome {{user.username}}!</h1>
+        <section class="row justify-content-center">
+          <h2 class="mb-4">Greatest Cricket Players</h2>
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+              <img src="https://static.cricbuzz.com/a/img/v1/152x152/i1/c171004/sachin-tendulkar.jpg"
+                class="card-img-top" alt="Sachin Tendulkar">
+              <div class="card-body">
+                <h5 class="card-title">Sachin Tendulkar (India)</h5>
+                <p class="card-text">Widely regarded as the greatest batsman of all time, Tendulkar holds numerous
+                  cricket
+                  records.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+              <img src="https://static.cricbuzz.com/a/img/v1/152x152/i1/c157770/sir-viv-richards.jpg"
+                class="card-img-top" alt="Sir Viv Richards">
+              <div class="card-body">
+                <h5 class="card-title">Sir Viv Richards (West Indies)</h5>
+                <p class="card-text">A legendary batsman known for his aggressive style and explosive power.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+              <img src="https://th.bing.com/th/id/OIP.OTrsos0cBkiOgTJ7udBEOgHaJ4?rs=1&pid=ImgDetMain"
+                class="card-img-top" alt="Shane Warne">
+              <div class="card-body">
+                <h5 class="card-title">Shane Warne (Australia)</h5>
+                <p class="card-text">A spin bowling wizard known for his mesmerizing deliveries and incredible
+                  wicket-taking
+                  record.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 mb-4">
+            <div class="card h-100 shadow-sm">
+              <img
+                src="https://static.toiimg.com/thumb/msid-101731747,imgsize-76626,width-900,height-1200,resizemode-6/101731747.jpg"
+                class="card-img-top" alt="Muttiah Muralitharan">
+              <div class="card-body">
+                <h5 class="card-title">Muttiah Muralitharan (Sri Lanka)</h5>
+                <p class="card-text">The world's leading wicket-taker in Test cricket, known for his exceptional
+                  off-spin
+                  bowling.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
 
-{% else %}
-
-<h1>Login</h1>
-<br/>
-
-<form method="POST" action="{% url 'home' %}">
-    {% csrf_token %}
-    <form>
-        <div class="mb-3">
-          <input type="text" class="form-control"  name="username", placeholder="Username" required>
+    </div>
+    {% else %}
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card mt-5">
+          <div class="card-body" style="padding: 40px; background-color: rgba(0, 0, 0, 0.7);">
+            <h1 class="text-center mb-4" style="color: #fff;">Login</h1>
+            <form method="POST" action="{% url 'home' %}">
+              {% csrf_token %}
+              <div class="mb-3">
+                <input type="text" class="form-control" name="username" placeholder="Username"
+                  style="border: 2px solid #fff; border-radius: 10px; height: 50px; color: #000;">
+              </div>
+              <div class="mb-3">
+                <input type="password" class="form-control" name="password" placeholder="Password"
+                  style="border: 2px solid #fff; border-radius: 10px; height: 50px; color: #000;">
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-block"
+                  style="background-color: #007bff; border: none; border-radius: 10px; padding: 10px 20px;">Login</button>
+              </div>
+            </form>
+            {% endif %}
+          </div>
         </div>
-        <br/>
-        <div class="mb-3">
-          <input type="password" class="form-control" name="password", placeholder="Password" required>
-        </div>
-        <br/>
-        <button type="submit" class="btn btn-secondary">Login</button>
-    </form>
-
-</form>
-
+      </div>
+    </div>
+  </div>
 </div>
-
-{% endif %}
-
 {% endblock %}
