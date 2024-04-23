@@ -1,0 +1,64 @@
+<!-- players/search_players.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Players</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .search-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .search-results {
+            margin-top: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .player-card {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        .player-card a {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .player-card p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="search-form">
+            <h1 class="text-center mb-4">Search Players</h1>
+            <form method="POST" action="{% url 'search_players' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="player_name">Player Name:</label>
+                    <input type="text" id="player_name" name="player_name" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+            {% if error %}
+                <p class="text-danger">{{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
