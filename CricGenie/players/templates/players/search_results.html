@@ -1,0 +1,49 @@
+<!-- players/search_results.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .player-card {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+        }
+        .player-card a {
+            color: #007bff;
+            font-weight: bold;
+        }
+        .player-card p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Search Results</h1>
+        {% if players_list %}
+            <div class="row">
+                {% for player in players_list %}
+                <div class="col-md-4">
+                    <div class="player-card">
+                        <h3><a href="{% url 'player_details' player.id %}">{{ player.name }}</a></h3>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center">No players found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

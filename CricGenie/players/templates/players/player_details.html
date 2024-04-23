@@ -1,0 +1,58 @@
+<!-- players/player_details.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Player Details</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .player-details {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .player-image {
+            max-width: 200px;
+            margin: 0 auto;
+            display: block;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="player-details">
+            <h1 class="text-center mb-4">{{ player_details.name }} - Player Details</h1>
+            <div class="row">
+                <div class="col-md-4">
+                    <img src="{{ player_details.image }}" alt="Player Image" class="player-image img-fluid">
+                </div>
+                <div class="col-md-8">
+                    <ul class="list-group">
+                        <li class="list-group-item"><strong>Nickname:</strong> {{ player_details.nickName }}</li>
+                        <li class="list-group-item"><strong>Role:</strong> {{ player_details.role }}</li>
+                        <li class="list-group-item"><strong>Team:</strong> {{ player_details.intlTeam }}</li>
+                        <li class="list-group-item"><strong>Date of Birth:</strong> {{ player_details.DoB }}</li>
+                        <li class="list-group-item"><strong>Height:</strong> {{ player_details.height }}</li>
+                        <!-- Add more details as needed -->
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-4">
+                <h3>Bio</h3>
+                <p>{{ player_details.bio | safe }}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
