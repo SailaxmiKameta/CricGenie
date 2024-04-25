@@ -1,6 +1,7 @@
 <!-- players/player_details.html -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Player Details</title>
@@ -12,23 +13,26 @@
             background-color: #f8f9fa;
             padding: 20px;
         }
+
         .player-details {
             max-width: 800px;
             margin: 0 auto;
             background-color: #fff;
             border-radius: 8px;
             padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
+
         .player-image {
             max-width: 200px;
             margin: 0 auto;
             display: block;
             border-radius: 50%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
+
 <body>
     <div class="container mt-5">
         <div class="player-details">
@@ -52,7 +56,17 @@
                 <h3>Bio</h3>
                 <p>{{ player_details.bio | safe }}</p>
             </div>
+
+            <form action="{% url 'add_remove_favorite' player_details.id %}" method="post">
+                {% csrf_token %}
+                {% if is_favorite %}
+                <button type="submit" class="btn btn-danger">Remove from Favorites</button>
+                {% else %}
+                <button type="submit" class="btn btn-primary">Add to Favorites</button>
+                {% endif %}
+            </form>
         </div>
     </div>
 </body>
+
 </html>
