@@ -10,7 +10,7 @@ def search_players(request):
         # Search for player ID using first API
         search_api_url = "https://cricbuzz-cricket.p.rapidapi.com/stats/v1/player/search"
         headers = {
-            'X-RapidAPI-Key': 'b9fa4a9482msh0051404b674a43fp1398fajsn5decfeb2d616',
+            'X-RapidAPI-Key': '5ef9c67401msh4b6c09615e9d5b9p161c7cjsnbe3992fc2f45',
             'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com'
         }
         search_params = {"plrN": player_name}
@@ -34,7 +34,7 @@ def player_details(request, player_id):
     # SECOND API URL to fetch player details
     api_url = f"https://cricbuzz-cricket.p.rapidapi.com/stats/v1/player/{player_id}"
     headers = {
-        'X-RapidAPI-Key': 'b9fa4a9482msh0051404b674a43fp1398fajsn5decfeb2d616',
+        'X-RapidAPI-Key': '5ef9c67401msh4b6c09615e9d5b9p161c7cjsnbe3992fc2f45',
         'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com'
     }
 
@@ -69,7 +69,7 @@ def fetch_player_details(player_id):
     api_url = f"https://cricbuzz-cricket.p.rapidapi.com/stats/v1/player/{player_id}"
     headers = {
         'x-rapidapi-host': "cricbuzz-cricket.p.rapidapi.com",
-        'x-rapidapi-key': "b9fa4a9482msh0051404b674a43fp1398fajsn5decfeb2d616"
+        'x-rapidapi-key': "5ef9c67401msh4b6c09615e9d5b9p161c7cjsnbe3992fc2f45"
     }
 
     try:
@@ -110,7 +110,7 @@ def fetch_player_name(player_id):
     api_url = f"https://cricbuzz-cricket.p.rapidapi.com/stats/v1/player/{player_id}"  # Replace with your API endpoint
     headers = {  # Replace with your API key and headers if necessary
         'x-rapidapi-host': "cricbuzz-cricket.p.rapidapi.com",
-        'x-rapidapi-key': "b9fa4a9482msh0051404b674a43fp1398fajsn5decfeb2d616"
+        'x-rapidapi-key': "5ef9c67401msh4b6c09615e9d5b9p161c7cjsnbe3992fc2f45"
     }
 
     response = requests.get(api_url, headers=headers)
