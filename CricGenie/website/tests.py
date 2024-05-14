@@ -34,3 +34,21 @@ class HomeViewTestCase(TestCase):
         # Check error message
         messages = [m.message for m in get_messages(response.wsgi_request)]
         self.assertIn("There Was An Error Logging In, Please Try Again...", messages)
+
+class LogoutViewTestCase(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.logout_url = reverse('logout')
+
+    def test_logout(self):
+        # Login as a test user
+        user = User.objects.create_user(username='testuser', password='testpassword')
+        self.client.login(username='testuser', password='testpassword')
+        # Logout request
+        response = self.client.get(self.logout_url)
+        self.assertEqual(response.status_code, 302)
+        # Check if user is logged out
+        self.assertFalse('_auth_user_id' in self.client.session)
+        # Check success message
+        messages = [m.message for m in get_messages(response.wsgi_request)]
+        self.assertIn("You Have Been Logged Out...", messages)
