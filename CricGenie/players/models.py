@@ -8,3 +8,11 @@ class FavoritePlayer(models.Model):
 
     def __str__(self):
         return f"{self.user.username}'s Favorite: {self.player_name}"
+
+
+class PlayerForm(models.Model):
+    player_name = models.CharField(max_length=100)
+    player_id = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.player_name

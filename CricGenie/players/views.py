@@ -2,13 +2,18 @@ import requests
 from django.shortcuts import render, redirect
 from .models import FavoritePlayer
 from django.contrib.auth.decorators import login_required
+from .forms import PlayerSearchForm
+from .models import PlayerForm
+
 
 def search_players(request):
     if request.method == 'POST':
-        player_name = request.POST.get('player_name')
+        form = PlayerSearchForm(request.POST)
+        if form.is_valid():
+            player_name = form.cleaned_data['player_name']
 
-        # Search for player ID using first API
-        search_api_url = "https://cricbuzz-cricket.p.rapidapi.com/stats/v1/player/search"
+            # Search for player ID using the API or any other method
+            search_api_url = "https://cricbuzz-cricket.p.rapidapi.com/stats/v1/player/search"
         headers = {
             'X-RapidAPI-Key': '5ef9c67401msh4b6c09615e9d5b9p161c7cjsnbe3992fc2f45',
             'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com'
@@ -26,8 +31,15 @@ def search_players(request):
                 return render(request, 'players/search_players.html', {'error': 'Player not found'})
         except requests.exceptions.RequestException as e:
             return render(request, 'players/error.html', {'error': str(e)})
+ 
+            players_list = Player.objects.filter(name__icontains=player_name)
+            if players_list:
+                return render(request, 'players/search_results.html', {'players_list': players_list})
+            else:
+                return render(request, 'players/search_players.html', {'error': 'Player not found'})
     else:
-        return render(request, 'players/search_players.html')
+        form = PlayerSearchForm()
+    return render(request, 'players/search_players.html', {'form': form})
 
 
 def player_details(request, player_id):
