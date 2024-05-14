@@ -4,49 +4,43 @@ from .models import FavoritePlayer
 from django.contrib.auth.decorators import login_required
 from .forms import PlayerSearchForm
 from .models import PlayerForm
+from django.views import View
 
 
-def search_players(request):
-    if request.method == 'POST':
+class SearchPlayersView(View):
+    def get(self, request):
+        form = PlayerSearchForm()
+        return render(request, 'players/search_players.html', {'form': form})
+
+    def post(self, request):
         form = PlayerSearchForm(request.POST)
         if form.is_valid():
             player_name = form.cleaned_data['player_name']
-
-            # Search for player ID using the API or any other method
             search_api_url = "https://cricbuzz-cricket.p.rapidapi.com/stats/v1/player/search"
-        headers = {
-            'X-RapidAPI-Key': '6965ee46f0mshd69dc98018f9a8fp1deb01jsn262449cfa585',
-            'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com'
-        }
-        search_params = {"plrN": player_name}
-        try:
-            search_response = requests.get(search_api_url, headers=headers, params=search_params)
-            search_response.raise_for_status()
-            player_data = search_response.json()
-            
-            if player_data.get("player"):
-                players_list = player_data["player"]
-                return render(request, 'players/search_results.html', {'players_list': players_list})
-            else:
-                return render(request, 'players/search_players.html', {'error': 'Player not found'})
-        except requests.exceptions.RequestException as e:
-            return render(request, 'players/error.html', {'error': str(e)})
- 
-            players_list = Player.objects.filter(name__icontains=player_name)
-            if players_list:
-                return render(request, 'players/search_results.html', {'players_list': players_list})
-            else:
-                return render(request, 'players/search_players.html', {'error': 'Player not found'})
-    else:
-        form = PlayerSearchForm()
-    return render(request, 'players/search_players.html', {'form': form})
-
+            headers = {
+                'X-RapidAPI-Key': 'b9fa4a9482msh0051404b674a43fp1398fajsn5decfeb2d616',
+                'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com'
+            }
+            search_params = {"plrN": player_name}
+            try:
+                search_response = requests.get(search_api_url, headers=headers, params=search_params)
+                search_response.raise_for_status()
+                player_data = search_response.json()
+                
+                if player_data.get("player"):
+                    players_list = player_data["player"]
+                    return render(request, 'players/search_results.html', {'players_list': players_list})
+                else:
+                    return render(request, 'players/search_players.html', {'error': 'Player not found'})
+            except requests.exceptions.RequestException as e:
+                return render(request, 'players/error.html', {'error': str(e)})
+        return render(request, 'players/search_players.html', {'form': form})
 
 def player_details(request, player_id):
     is_favorite = FavoritePlayer.objects.filter(player_id=player_id, user=request.user).exists()
     api_url = f"https://cricbuzz-cricket.p.rapidapi.com/stats/v1/player/{player_id}"
     headers = {
-        'X-RapidAPI-Key': '6965ee46f0mshd69dc98018f9a8fp1deb01jsn262449cfa585',
+        'X-RapidAPI-Key': 'b9fa4a9482msh0051404b674a43fp1398fajsn5decfeb2d616',
         'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com'
     }
 
@@ -82,7 +76,7 @@ def fetch_player_details(player_id):
     api_url = f"https://cricbuzz-cricket.p.rapidapi.com/stats/v1/player/{player_id}"
     headers = {
         'x-rapidapi-host': "cricbuzz-cricket.p.rapidapi.com",
-        'x-rapidapi-key': "6965ee46f0mshd69dc98018f9a8fp1deb01jsn262449cfa585"
+        'x-rapidapi-key': "b9fa4a9482msh0051404b674a43fp1398fajsn5decfeb2d616"
     }
 
     try:
@@ -123,7 +117,7 @@ def fetch_player_name(player_id):
     api_url = f"https://cricbuzz-cricket.p.rapidapi.com/stats/v1/player/{player_id}"  # Replace with your API endpoint
     headers = {  # Replace with your API key and headers if necessary
         'x-rapidapi-host': "cricbuzz-cricket.p.rapidapi.com",
-        'x-rapidapi-key': "6965ee46f0mshd69dc98018f9a8fp1deb01jsn262449cfa585"
+        'x-rapidapi-key': "b9fa4a9482msh0051404b674a43fp1398fajsn5decfeb2d616"
     }
 
     response = requests.get(api_url, headers=headers)
